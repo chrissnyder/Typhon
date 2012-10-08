@@ -1,0 +1,6 @@
+<li>
+  Author: <%- @author %><br>
+  Name: <%- @name %><br>
+  Text: <%- @text %><br>
+  Time: <%- @time %>
+</li>
