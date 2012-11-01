@@ -1,0 +1,5 @@
+<ul>
+  <li><a href="<%- @html_url %>"><%- @name %></a></li>
+  <li><%- @language %></li>
+  <li><%- @updated_at %></li>
+</ul>

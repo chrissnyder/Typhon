@@ -1,20 +1,34 @@
 Tweet = require 'models/Tweet'
+
 TweetItem = require 'controllers/tweet_item'
 
 class Tweets extends Spine.Controller
 
+  tag: 'ul'
+
   constructor: ->
     super
-    Tweet.bind 'create', @addTweet
-    Tweet.bind 'refresh', @allAll
+    Tweet.bind 'create', @add
+    Tweet.one 'create', @beginAnimation
+    Tweet.bind 'destroy', @fetchTweets
 
-  addTweet: (tweet) =>
+  add: (tweet) =>
     tweet = new TweetItem(tweet: tweet)
-    console.log tweet
     @append tweet.render()
 
-  addTweets: =>
-    Tweet.each @addTweet
+  beginAnimation: =>
+    screen_width = $(document).width()
+    time = screen_width * 8
+    @el.css 'margin-left', screen_width
+
+    @el.animate {
+        marginLeft: 0
+      }, time, 'linear', =>
+        Tweet.first().destroy()
+
+  fetchTweets: =>
+    if Tweet.count() < 6
+      Tweet.fetch()
 
 
 module.exports = Tweets

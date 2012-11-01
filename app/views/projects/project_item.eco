@@ -1,0 +1,15 @@
+<ul>
+  <li><h3><%- @name %></h3></li>
+  <li>
+    <ul>
+      <li><a href="<%- @repository().html_url %>"><%- @repository().name %></a></li>
+      <li><%- @repository().language %></li>
+      <li><%- @repository().updated_at %></li>
+    </ul>
+  </li>
+  <% if @hudson?: %>
+  <li>
+    Hudson Status: <%- @hudson.buildScore %>
+  </li>
+  <% end %>
+</ul>
