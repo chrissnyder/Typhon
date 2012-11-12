@@ -1,10 +1,11 @@
 <ul>
-  <li><h3><%- @name %></h3></li>
+  <li><h2><%- @name %></h2></li>
   <li>
     <ul>
       <li><a href="<%- @repository.html_url %>"><%- @repository.name %></a></li>
       <li><%- @repository.language %></li>
       <li><%- @repository.updated_at %></li>
+      <li>Open Issues: <%- @repository.open_issues %></li>
     </ul>
   </li>
   <% if @hudson_data: %>
@@ -13,7 +14,7 @@
     </li>
   <% end %>
   <li>
-    <label>Issues</label>
+    <h3>Issues</h3>
     <% if @repository.issues: %>
       <ul class="issues">
       <% for issue in @repository.issues: %>
@@ -24,7 +25,7 @@
     <% end %>
   </li>
   <li>
-    <label>Commits</label>
+    <h3>Commits</h3>
     <% if @repository.commits: %>
       <ul class="commits">
       <% for commit in @repository.commits: %>

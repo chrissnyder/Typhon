@@ -2044,34 +2044,6 @@ window.require.define({"lib/twitter-text": function(exports, require, module) {
   
 }});
 
-window.require.define({"models/Hudson": function(exports, require, module) {
-  (function() {
-    var Hudson,
-      __hasProp = Object.prototype.hasOwnProperty,
-      __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
-
-    Hudson = (function(_super) {
-
-      __extends(Hudson, _super);
-
-      function Hudson() {
-        Hudson.__super__.constructor.apply(this, arguments);
-      }
-
-      Hudson.configure('Hudson', 'name', 'buildScore', 'healthReport');
-
-      Hudson.belongsTo('project', 'models/Project');
-
-      return Hudson;
-
-    })(Spine.Model);
-
-    module.exports = Hudson;
-
-  }).call(this);
-  
-}});
-
 window.require.define({"models/Issue": function(exports, require, module) {
   (function() {
     var Issue,
@@ -2102,13 +2074,9 @@ window.require.define({"models/Issue": function(exports, require, module) {
 
 window.require.define({"models/Project": function(exports, require, module) {
   (function() {
-    var Hudson, Project, Repository,
+    var Project,
       __hasProp = Object.prototype.hasOwnProperty,
       __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
-
-    Hudson = require('models/Hudson');
-
-    Repository = require('models/Repository');
 
     Project = (function(_super) {
 
@@ -2135,34 +2103,6 @@ window.require.define({"models/Project": function(exports, require, module) {
     })(Spine.Model);
 
     module.exports = Project;
-
-  }).call(this);
-  
-}});
-
-window.require.define({"models/Repository": function(exports, require, module) {
-  (function() {
-    var Repository,
-      __hasProp = Object.prototype.hasOwnProperty,
-      __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
-
-    Repository = (function(_super) {
-
-      __extends(Repository, _super);
-
-      function Repository() {
-        Repository.__super__.constructor.apply(this, arguments);
-      }
-
-      Repository.configure('Repository', '_id', 'name', 'language', 'html_url', 'updated_at');
-
-      Repository.belongsTo('project', 'models/Project');
-
-      return Repository;
-
-    })(Spine.Model);
-
-    module.exports = Repository;
 
   }).call(this);
   
@@ -2297,11 +2237,11 @@ window.require.define({"views/projects/project_item": function(exports, require,
       (function() {
         var commit, issue, _i, _j, _len, _len1, _ref, _ref1;
       
-        __out.push('<ul>\n  <li><h3>');
+        __out.push('<ul>\n  <li><h2>');
       
         __out.push(this.name);
       
-        __out.push('</h3></li>\n  <li>\n    <ul>\n      <li><a href="');
+        __out.push('</h2></li>\n  <li>\n    <ul>\n      <li><a href="');
       
         __out.push(this.repository.html_url);
       
@@ -2317,6 +2257,10 @@ window.require.define({"views/projects/project_item": function(exports, require,
       
         __out.push(this.repository.updated_at);
       
+        __out.push('</li>\n      <li>Open Issues: ');
+      
+        __out.push(this.repository.open_issues);
+      
         __out.push('</li>\n    </ul>\n  </li>\n  ');
       
         if (this.hudson_data) {
@@ -2325,7 +2269,7 @@ window.require.define({"views/projects/project_item": function(exports, require,
           __out.push('\n    </li>\n  ');
         }
       
-        __out.push('\n  <li>\n    <label>Issues</label>\n    ');
+        __out.push('\n  <li>\n    <h3>Issues</h3>\n    ');
       
         if (this.repository.issues) {
           __out.push('\n      <ul class="issues">\n      ');
@@ -2341,7 +2285,7 @@ window.require.define({"views/projects/project_item": function(exports, require,
           __out.push('\n      </ul>\n    ');
         }
       
-        __out.push('\n  </li>\n  <li>\n    <label>Commits</label>\n    ');
+        __out.push('\n  </li>\n  <li>\n    <h3>Commits</h3>\n    ');
       
         if (this.repository.commits) {
           __out.push('\n      <ul class="commits">\n      ');

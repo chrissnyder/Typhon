@@ -1,9 +1,8 @@
-$projects-height = 510px
+$projects-height = 440px
 
 .projects_container
-  overflow: hidden
   overflow-x: scroll
-  height: $projects-height - 10
+  overflow-y: hidden
 #projects
   position: relative
   margin: 0
@@ -25,6 +24,11 @@ $projects-height = 510px
       > li
         padding: 7px 0
         border-bottom: 1px solid rgba(#333, 0.95)
+
+        h2
+          margin: 6px 0
+        h3
+          margin: 4px 0
         label
           font-weight: 700
 
