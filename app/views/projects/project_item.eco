@@ -7,9 +7,9 @@
       <li><%- @repository.updated_at %></li>
     </ul>
   </li>
-  <% if @hudson: %>
+  <% if @hudson_data: %>
     <li>
-      Hudson Status: <%- @hudson.buildScore %>
+      Hudson Status: <%- @hudson_data.score %>
     </li>
   <% end %>
   <li>

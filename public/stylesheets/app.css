@@ -61,7 +61,7 @@ td { vertical-align: top; }
 
 .chromeframe { margin: 0.2em 0; background: #ccc; color: black; padding: 0.2em 0; }
 ::selection {
-  background: #4c7282;
+  background: #547e90;
   color: #fff;
   text-shadow: none;
 }
@@ -114,8 +114,6 @@ ul li {
 }
 #projects {
   position: relative;
-  float: left;
-  width: 3000px;
   margin: 0;
   padding: 0;
 }

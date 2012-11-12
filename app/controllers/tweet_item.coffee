@@ -21,7 +21,7 @@ class TweetItem extends Spine.Controller
 
     @el.animate {
       marginLeft: -tweet_width - 35
-    }, (tweet_width * 6), 'linear', =>
+    }, (tweet_width / 100) * 1000, 'linear', =>
       @el.remove()
       Tweet.first().destroy()
 

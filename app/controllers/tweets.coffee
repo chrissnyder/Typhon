@@ -18,7 +18,7 @@ class Tweets extends Spine.Controller
 
   beginAnimation: =>
     screen_width = $(document).width()
-    time = screen_width * 8
+    time = (screen_width / 100) * 1000
     @el.css 'margin-left', screen_width
 
     @el.animate {

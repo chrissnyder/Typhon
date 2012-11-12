@@ -3,7 +3,7 @@ Hudson = require 'models/Hudson'
 Repository = require 'models/Repository'
 
 class Project extends Spine.Model
-  @configure 'Project', '_id', 'name', 'repository', 'hudson'
+  @configure 'Project', '_id', 'name', 'repository', 'hudson_data'
   # @hasOne 'repository', Repository
 
   @fetch: ->

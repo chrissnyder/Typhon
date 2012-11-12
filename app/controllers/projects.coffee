@@ -13,6 +13,9 @@ class Projects extends Spine.Controller
   add: (project) =>
     project = new ProjectItem(project: project)
     @append project.render()
+    
+    @el.css
+      width: @el.children().size() * @el.children().first().outerWidth()
 
 
 module.exports = Projects

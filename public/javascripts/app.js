@@ -222,7 +222,10 @@ window.require.define({"controllers/projects": function(exports, require, module
         project = new ProjectItem({
           project: project
         });
-        return this.append(project.render());
+        this.append(project.render());
+        return this.el.css({
+          width: this.el.children().size() * this.el.children().first().outerWidth()
+        });
       };
 
       return Projects;
@@ -375,7 +378,7 @@ window.require.define({"controllers/tweet_item": function(exports, require, modu
         tweet_width = this.el.width();
         return this.el.animate({
           marginLeft: -tweet_width - 35
-        }, tweet_width * 6, 'linear', function() {
+        }, (tweet_width / 100) * 1000, 'linear', function() {
           _this.el.remove();
           return Tweet.first().destroy();
         });
@@ -432,7 +435,7 @@ window.require.define({"controllers/tweets": function(exports, require, module) 
         var screen_width, time,
           _this = this;
         screen_width = $(document).width();
-        time = screen_width * 8;
+        time = (screen_width / 100) * 1000;
         this.el.css('margin-left', screen_width);
         return this.el.animate({
           marginLeft: 0
@@ -2115,7 +2118,7 @@ window.require.define({"models/Project": function(exports, require, module) {
         Project.__super__.constructor.apply(this, arguments);
       }
 
-      Project.configure('Project', '_id', 'name', 'repository', 'hudson');
+      Project.configure('Project', '_id', 'name', 'repository', 'hudson_data');
 
       Project.fetch = function() {
         console.log('Fetching zooniverse projects...');
@@ -2316,9 +2319,9 @@ window.require.define({"views/projects/project_item": function(exports, require,
       
         __out.push('</li>\n    </ul>\n  </li>\n  ');
       
-        if (this.hudson) {
+        if (this.hudson_data) {
           __out.push('\n    <li>\n      Hudson Status: ');
-          __out.push(this.hudson.buildScore);
+          __out.push(this.hudson_data.score);
           __out.push('\n    </li>\n  ');
         }
       
