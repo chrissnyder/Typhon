@@ -1,7 +1,10 @@
+TwitterText = require 'lib/twitter-text'
+
 Tweet = require 'models/Tweet'
 
 class TweetItem extends Spine.Controller
 
+  className: 'tweet'
   tag: 'li'
 
   constructor: ->
@@ -23,8 +26,7 @@ class TweetItem extends Spine.Controller
       Tweet.first().destroy()
 
   linkTweet: (text) =>
-    text = text.replace /#([a-zA-Z0-9_-]+)/g, '<a class="hashtag" href="http://www.twitter.com/#search?q=$1">#$1</a>'
-    text.replace /@([a-zA-Z0-9_-]+)/g, '<a class="twitteruser" href="http://www.twitter.com/$1">@$1</a>'
+    TwitterText.autoLink text
 
 
 module.exports = TweetItem

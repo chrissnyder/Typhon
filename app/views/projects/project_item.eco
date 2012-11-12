@@ -2,14 +2,36 @@
   <li><h3><%- @name %></h3></li>
   <li>
     <ul>
-      <li><a href="<%- @repository().html_url %>"><%- @repository().name %></a></li>
-      <li><%- @repository().language %></li>
-      <li><%- @repository().updated_at %></li>
+      <li><a href="<%- @repository.html_url %>"><%- @repository.name %></a></li>
+      <li><%- @repository.language %></li>
+      <li><%- @repository.updated_at %></li>
     </ul>
   </li>
-  <% if @hudson?: %>
-  <li>
-    Hudson Status: <%- @hudson.buildScore %>
-  </li>
+  <% if @hudson: %>
+    <li>
+      Hudson Status: <%- @hudson.buildScore %>
+    </li>
   <% end %>
+  <li>
+    <label>Issues</label>
+    <% if @repository.issues: %>
+      <ul class="issues">
+      <% for issue in @repository.issues: %>
+        <li><%- issue.title %></li>
+        <li><%- issue.updated_at %></li>
+      <% end %>
+      </ul>
+    <% end %>
+  </li>
+  <li>
+    <label>Commits</label>
+    <% if @repository.commits: %>
+      <ul class="commits">
+      <% for commit in @repository.commits: %>
+        <li><%- commit.committer.login %></li>
+        <li><%- commit.commit.message %></li>
+      <% end %>
+      </ul>
+    <% end %>
+  </li>
 </ul>

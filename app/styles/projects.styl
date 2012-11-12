@@ -1,0 +1,35 @@
+$projects-height = 510px
+
+.projects_container
+  overflow: hidden
+  overflow-x: scroll
+  height: $projects-height - 10
+#projects
+  position: relative
+  width: 2000px
+  margin: 0
+  padding: 0
+  > li
+    float: left
+    width: 250px
+    height: $projects-height
+    padding: 10px
+    background: rgba(#282828, 0.8)
+    border-right: 1px solid rgba(#3a3a3a, 0.7)
+    border-left: 1px solid rgba(#505050, 0.7)
+
+    // Individual project block style
+    ul
+      margin: 0
+      padding: 0
+
+      > li
+        padding: 7px 0
+        border-bottom: 1px solid rgba(#333, 0.95)
+        label
+          font-weight: 700
+
+        ul
+          li
+            padding: 1px 0
+            border: 0

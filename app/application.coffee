@@ -1,5 +1,7 @@
 require 'lib/setup'
 
+Messages = require 'lib/messages'
+
 Project = require 'models/Project'
 Tweet = require 'models/Tweet'
 
@@ -20,6 +22,9 @@ class App extends Spine.Controller
 
     projects = new Projects({el: @projects})
     Project.fetch()
+
+    # Setup pusher messaging
+    messages = new Messages()
 
   render: =>
     @html require('views/app')()

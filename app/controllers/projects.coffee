@@ -8,10 +8,11 @@ class Projects extends Spine.Controller
 
   constructor: ->
     super
-    Project.bind 'project_create', @add
+    Project.bind 'create', @add
 
   add: (project) =>
     project = new ProjectItem(project: project)
     @append project.render()
+
 
 module.exports = Projects

@@ -5,6 +5,7 @@ class RepoItem extends Spine.Controller
   
   constructor: ->
     super
+    @repo.bind 'update', @render
 
   render: (repo) =>
     @repo = repo if repo

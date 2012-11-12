@@ -1,6 +1,3 @@
-<ul>
-  <li>Author: <%- @tweet.author %></li>
-  <li>Name: <%- @tweet.name %></li>
-  <li>Text: <%- @linkTweet @tweet.text %></li>
-  <li>Time: <%- @tweet.time %></li>
-</ul>
+<div class="author-meta"><%- @tweet.author_name %></div>
+<div class="author-meta">(<span class="handle">@<%- @tweet.author %></span>): </div>
+<div> <%- @linkTweet(@tweet.text) %></div>

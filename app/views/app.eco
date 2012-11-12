@@ -1,3 +1,6 @@
-<h2>Zooniverse Build Board</h2>
-<ul id="projects"></ul>
-<ul id="tweets"></ul>
+<div class="projects_container">
+  <ul id="projects"></ul>
+</div>
+<div id="ticker">
+  <ul id="tweets"></ul>
+</div>
