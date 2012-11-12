@@ -9,9 +9,6 @@ html { font-size: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 10
 html, button, input, select, textarea { font-family: sans-serif; color: #222; }
 body { margin: 0; font-size: 1em; line-height: 1.4; }
 
-::-moz-selection { background: #fe57a1; color: #fff; text-shadow: none; }
-::selection { background: #fe57a1; color: #fff; text-shadow: none; }
-
 a { color: #00e; }
 a:visited { color: #551a8b; }
 a:hover { color: #06e; }
@@ -63,11 +60,10 @@ table { border-collapse: collapse; border-spacing: 0; }
 td { vertical-align: top; }
 
 .chromeframe { margin: 0.2em 0; background: #ccc; color: black; padding: 0.2em 0; }
-p {
-  font-size: 1.2em;
-  font-weight: bold;
-  margin: 0;
-  padding: 1em;
+::selection {
+  background: #4c7282;
+  color: #fff;
+  text-shadow: none;
 }
 html {
   overflow-y: auto;
@@ -89,6 +85,12 @@ a:visited {
 }
 a:hover {
   color: #9fbbc7;
+}
+p {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 0;
+  padding: 1em;
 }
 ul li {
   list-style: none;
@@ -112,13 +114,14 @@ ul li {
 }
 #projects {
   position: relative;
-  width: 2000px;
+  float: left;
+  width: 3000px;
   margin: 0;
   padding: 0;
 }
 #projects > li {
   float: left;
-  width: 250px;
+  width: 265px;
   height: 510px;
   padding: 10px;
   background: rgba(40,40,40,0.80);

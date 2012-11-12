@@ -155,10 +155,8 @@ window.require.define({"controllers/project_item": function(exports, require, mo
         var index,
           _this = this;
         if (project) this.project = project;
-        console.log(this.project);
         this.html(require('views/projects/project_item')(this.project));
         if (project != null) {
-          console.log('test');
           index = this.el.index();
           this.el.css({
             position: 'absolute',

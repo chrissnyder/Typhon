@@ -1,3 +1,10 @@
+$background-color = #1c2a30
+
+::selection
+  background: lighten($background-color, 30%)
+  color: #fff
+  text-shadow: none
+
 html
   overflow-y: auto
   background-color: transparent
@@ -6,7 +13,7 @@ html
 body
   overflow: hidden
   padding: 0
-  background: #1c2a30
+  background: $background-color
   color: #efefef
   font: 1.4em Helvetica, Arial
 
@@ -17,7 +24,11 @@ a
   &:hover
     color: lighten(#1c2a30, 65%)
 
-
+p
+    font-size 1.2em
+    font-weight bold
+    margin 0
+    padding 1em
 
 ul
   li

@@ -9,12 +9,10 @@ class ProjectItem extends Spine.Controller
 
   render: (project) =>
     @project = project if project
-    console.log @project
     @html require('views/projects/project_item')(@project)
 
     if project?
       # Theoretically...
-      console.log 'test'
       index = @el.index()
 
       @el.css
