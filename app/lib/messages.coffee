@@ -35,4 +35,5 @@ class Messages extends Spine.Controller
     else
       console.log 'project not found'
 
+
 module.exports = Messages
