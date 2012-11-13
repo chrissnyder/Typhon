@@ -29,9 +29,8 @@
     "eco-brunch": "1.3.0",
 
     "uglify-js-brunch": "> 1.0 < 1.3",
-    "clean-css-brunch": "> 1.0 < 1.3"
-  },
-  "devDependencies": {
+    "clean-css-brunch": "> 1.0 < 1.3",
+
     "mocha": "0.14.0",
     "expect.js": "0.1.2"
   }
