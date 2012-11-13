@@ -14,7 +14,7 @@
   },
   "scripts": {
     "start": "brunch watch --server",
-    "postinstall": "brunch build"
+    "postinstall": "brunch build --minify"
   },
   "dependencies": {
     "statik": ">= 1.1.0", 
