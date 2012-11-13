@@ -15,16 +15,15 @@ class Messages extends Spine.Controller
     @openPusher()
     @setupPusherBindings @defaultChannel, @pusher
 
-  openPusher: ->
+  openPusher: =>
     throw "You need to specify a pusher key" unless @pusherKey
-
     @pusherConnection = new Pusher(@pusherKey)
     @defaultChannel = @openChannel @pusherChannel
 
-  openChannel: (channelName) ->
+  openChannel: (channelName) =>
     @pusherChannels[channelName] = @pusherConnection.subscribe channelName 
 
-  setupPusherBindings: (channel, bindings) ->
+  setupPusherBindings: (channel, bindings) =>
     for key, method of bindings
       channel.bind key, @[method]
 

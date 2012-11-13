@@ -1,6 +1,11 @@
 <div class="projects_container">
   <ul id="projects"></ul>
 </div>
+
+<section>
+  <div id="graph"></div>
+</section>
+
 <div id="ticker">
   <ul id="tweets"></ul>
 </div>

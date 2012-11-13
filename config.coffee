@@ -14,6 +14,8 @@ exports.config =
           'vendor/scripts/spine/lib/manager.js',
           'vendor/scripts/spine/lib/route.js',
           'vendor/scripts/spine/lib/tmpl.js'
+          'vendor/scripts/common/d3.js',
+          'vendor/scripts/common/d3-layout.js',
         ]
 
     stylesheets:

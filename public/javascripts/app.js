@@ -76,7 +76,7 @@
 
 window.require.define({"application": function(exports, require, module) {
   (function() {
-    var App, Messages, Project, Projects, Tweet, Tweets,
+    var App, Desk, Graph, Messages, NewRelic, Project, Projects, Tweet, Tweets,
       __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
       __hasProp = Object.prototype.hasOwnProperty,
       __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
@@ -85,9 +85,15 @@ window.require.define({"application": function(exports, require, module) {
 
     Messages = require('lib/messages');
 
+    Desk = require('models/Desk');
+
+    NewRelic = require('models/NewRelic');
+
     Project = require('models/Project');
 
     Tweet = require('models/Tweet');
+
+    Graph = require('controllers/graph');
 
     Projects = require('controllers/projects');
 
@@ -99,12 +105,13 @@ window.require.define({"application": function(exports, require, module) {
 
       App.prototype.elements = {
         '#tweets': 'tweets',
-        '#projects': 'projects'
+        '#projects': 'projects',
+        '#graph': 'graph'
       };
 
       function App() {
         this.render = __bind(this.render, this);
-        var messages, projects, tweets;
+        var graph, messages, projects, tweets;
         App.__super__.constructor.apply(this, arguments);
         this.render();
         tweets = new Tweets({
@@ -115,6 +122,10 @@ window.require.define({"application": function(exports, require, module) {
           el: this.projects
         });
         Project.fetch();
+        Desk.fetch();
+        graph = new Graph({
+          el: this.graph
+        });
         messages = new Messages();
       }
 
@@ -127,6 +138,55 @@ window.require.define({"application": function(exports, require, module) {
     })(Spine.Controller);
 
     module.exports = App;
+
+  }).call(this);
+  
+}});
+
+window.require.define({"controllers/graph": function(exports, require, module) {
+  (function() {
+    var Graph, NewRelic,
+      __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+      __hasProp = Object.prototype.hasOwnProperty,
+      __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
+
+    NewRelic = require('models/NewRelic');
+
+    Graph = (function(_super) {
+
+      __extends(Graph, _super);
+
+      function Graph() {
+        this.drawGraph = __bind(this.drawGraph, this);      Graph.__super__.constructor.apply(this, arguments);
+        NewRelic.bind('create update', this.drawGraph);
+        this.getData();
+        setInterval(this.getData, 60000);
+      }
+
+      Graph.prototype.drawGraph = function(data) {
+        this.el.empty();
+        this.graph = new Rickshaw.Graph({
+          element: document.getElementById('graph'),
+          renderer: 'area',
+          series: [
+            {
+              color: '#f47a4b',
+              data: data.times
+            }
+          ]
+        });
+        return this.graph.render();
+      };
+
+      Graph.prototype.getData = function() {
+        return NewRelic.fetch();
+      };
+
+      return Graph;
+
+    })(Spine.Controller);
+
+    module.exports = Graph;
 
   }).call(this);
   
@@ -480,6 +540,9 @@ window.require.define({"lib/messages": function(exports, require, module) {
       };
 
       function Messages() {
+        this.setupPusherBindings = __bind(this.setupPusherBindings, this);
+        this.openChannel = __bind(this.openChannel, this);
+        this.openPusher = __bind(this.openPusher, this);
         this.setupPusher = __bind(this.setupPusher, this);      this.pusherChannels = {};
         this.setupPusher();
       }
@@ -2044,6 +2107,42 @@ window.require.define({"lib/twitter-text": function(exports, require, module) {
   
 }});
 
+window.require.define({"models/Desk": function(exports, require, module) {
+  (function() {
+    var Desk,
+      __hasProp = Object.prototype.hasOwnProperty,
+      __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
+
+    Desk = (function(_super) {
+
+      __extends(Desk, _super);
+
+      function Desk() {
+        Desk.__super__.constructor.apply(this, arguments);
+      }
+
+      Desk.configure('Case', 'updated_at', 'subject');
+
+      Desk.fetch = function() {
+        console.log('Fetching open tickets');
+        return $.getJSON('http://localhost:3001/tickets/open', function(data) {
+          return _.each(data, function(datum) {
+            var d;
+            return d = Desk.create(datum);
+          });
+        });
+      };
+
+      return Desk;
+
+    })(Spine.Model);
+
+    module.exports = Desk;
+
+  }).call(this);
+  
+}});
+
 window.require.define({"models/Issue": function(exports, require, module) {
   (function() {
     var Issue,
@@ -2072,6 +2171,47 @@ window.require.define({"models/Issue": function(exports, require, module) {
   
 }});
 
+window.require.define({"models/NewRelic": function(exports, require, module) {
+  (function() {
+    var NewRelic,
+      __hasProp = Object.prototype.hasOwnProperty,
+      __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
+
+    NewRelic = (function(_super) {
+
+      __extends(NewRelic, _super);
+
+      function NewRelic() {
+        NewRelic.__super__.constructor.apply(this, arguments);
+      }
+
+      NewRelic.configure('NewRelic', 'times');
+
+      NewRelic.fetch = function() {
+        console.log('Fetching New Relic data');
+        return $.getJSON('http://localhost:3001/newrelic', function(data) {
+          if (NewRelic.count() > 0) {
+            return NewRelic.update((NewRelic.first()).id, {
+              times: data
+            });
+          } else {
+            return NewRelic.create({
+              times: data
+            });
+          }
+        });
+      };
+
+      return NewRelic;
+
+    })(Spine.Model);
+
+    module.exports = NewRelic;
+
+  }).call(this);
+  
+}});
+
 window.require.define({"models/Project": function(exports, require, module) {
   (function() {
     var Project,
@@ -2089,7 +2229,7 @@ window.require.define({"models/Project": function(exports, require, module) {
       Project.configure('Project', '_id', 'name', 'repository', 'hudson_data');
 
       Project.fetch = function() {
-        console.log('Fetching zooniverse projects...');
+        console.log('Fetching zooniverse projects');
         return $.getJSON('http://localhost:3001/projects', function(data) {
           return _.each(data, function(datum) {
             var project;
@@ -2125,7 +2265,7 @@ window.require.define({"models/Tweet": function(exports, require, module) {
       Tweet.configure('Tweet', 'author', 'author_name', 'text', 'time');
 
       Tweet.fetch = function() {
-        console.log('Fetching recent tweets...');
+        console.log('Fetching recent tweets');
         return $.getJSON('http://localhost:3001/twitter/recents', function(data) {
           data = JSON.parse(data);
           return _.each(data, function(datum) {
@@ -2185,7 +2325,7 @@ window.require.define({"views/app": function(exports, require, module) {
     (function() {
       (function() {
       
-        __out.push('<div class="projects_container">\n  <ul id="projects"></ul>\n</div>\n<div id="ticker">\n  <ul id="tweets"></ul>\n</div>');
+        __out.push('<div class="projects_container">\n  <ul id="projects"></ul>\n</div>\n\n<section>\n  <div id="graph"></div>\n</section>\n\n<div id="ticker">\n  <ul id="tweets"></ul>\n</div>\n');
       
       }).call(this);
       
