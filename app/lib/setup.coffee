@@ -1,11 +1,3 @@
-
-$.ajaxSetup beforeSend: (xhr, settings) ->
-  if window.location.hostname is "0.0.0.0" or window.location.hostname is "localhost"
-    # settings.url = 'http://localhost:3001' + settings.url
-    # console.log xhr, settings
-  else
-    console.log ''
-
 Spine   = @Spine or require('spine')
 isArray = Spine.isArray
 require = @require or ((value) -> eval(value))
