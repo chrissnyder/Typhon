@@ -1,3 +1,3 @@
 var statik = require('statik');
 var server = statik.createServer();
-server.listen(process.env.PORT || 1337);
+server.listen(process.env.PORT || 3333);
