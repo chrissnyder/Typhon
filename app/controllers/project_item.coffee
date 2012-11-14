@@ -15,31 +15,33 @@ class ProjectItem extends Spine.Controller
       # Theoretically...
       index = @el.index()
 
-      @el.css
-        position: 'absolute'
-        left: @el.outerWidth() * index
+      unless index is 0
+        @el.css
+          position: 'absolute'
+          left: @el.outerWidth() * index
 
-      @el.before '<li class="blank"></li>'
+        @el.before '<li class="blank"></li>'
 
-      @el.parent().animate {
-        paddingLeft: @el.outerWidth()
-      }, 1700, ->
-        # Nothing
+        @el.parent().animate {
+          paddingLeft: @el.outerWidth()
+        }, 1700, ->
+          # Nothing
 
-      @el.parent().find('.blank').animate {
-        width: 0
-      }, 1700, ->
-        console.log $(@).remove()
+        @el.parent().find('.blank').animate {
+          padding: 0
+          width: 0
+        }, 1700, ->
+          console.log $(@).remove()
 
-      @el.animate {
-        left: 0
-        }, 2200, =>
-          @el.insertBefore @el.parent().children().first()
-          @el.css
-            position: 'relative'
+        @el.animate {
+          left: 0
+          }, 2200, =>
+            @el.insertBefore @el.parent().children().first()
+            @el.css
+              position: 'relative'
 
-          @el.parent().css
-            paddingLeft: 0
+            @el.parent().css
+              paddingLeft: 0
 
     return @el
 

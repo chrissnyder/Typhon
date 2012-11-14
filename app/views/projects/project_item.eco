@@ -5,6 +5,9 @@
       <li><a href="<%- @repository.html_url %>"><%- @repository.name %></a></li>
       <li><%- @repository.language %></li>
       <li><%- @repository.updated_at %></li>
+      <% if @branch: %>
+      <li>Active branch: <%- @branch %></li>
+      <% end %>
       <li>Open Issues: <%- @repository.open_issues %></li>
     </ul>
   </li>

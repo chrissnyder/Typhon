@@ -1,7 +1,7 @@
 ajax = require 'lib/ajax'
 
 class Project extends Spine.Model
-  @configure 'Project', '_id', 'name', 'repository', 'hudson_data'
+  @configure 'Project', '_id', 'name', 'branch', 'repository', 'hudson_data'
 
   @fetch: ->
     console.log 'Fetching zooniverse projects'
